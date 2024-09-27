@@ -5,6 +5,10 @@ export const content = [
   './public/**/*.html',
 ];
 export const theme = {
-  extend: {},
+  extend: {
+    colors: {
+      'primary': '#3B82F6',
+    },
+  },
 };
 export const plugins = [];
