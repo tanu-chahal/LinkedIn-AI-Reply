@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom/client";
+import ReactDOM, { createRoot } from "react-dom/client";
 import AIIcon from "../src/AIIcon";
 import App from "../src/App";
 import React from "react";
@@ -6,14 +6,37 @@ import React from "react";
 export default defineContentScript({
   matches: ["*://*.linkedin.com/*"],
   main() {
-    console.log("Hello from LinkedIn AI Reply.");
     document.addEventListener("focusin", (e: FocusEvent) => {
       const messageInput = document.querySelector<HTMLInputElement>(
         ".msg-form__contenteditable"
       );
-      console.log("Message Input on focus", messageInput);
       if (messageInput && e.target === messageInput) {
         showAIIcon(messageInput);
+      }
+    });
+
+    document.addEventListener("focusout", (e: FocusEvent) => {
+      const messageInput = document.querySelector<HTMLInputElement>(
+        ".msg-form__contenteditable"
+      );
+
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      if (
+        messageInput &&
+        e.target === messageInput &&
+        !document
+          .getElementById("ai-reply-icon-container")
+          ?.contains(relatedTarget)
+      ) {
+        const iconContainer = document.getElementById(
+          "ai-reply-icon-container"
+        );
+
+        if (iconContainer) {
+          const root = createRoot(iconContainer);
+          root.unmount();
+          iconContainer.remove();
+        }
       }
     });
   },
@@ -23,7 +46,7 @@ const showAIIcon = (messageInput: HTMLInputElement) => {
   if (document.getElementById("ai-reply-icon-container")) return;
 
   const iconContainer = document.createElement("div");
-  iconContainer.id = "ai-icon-container";
+  iconContainer.id = "ai-reply-icon-container";
   iconContainer.style.position = "absolute";
   iconContainer.style.right = "12px";
   iconContainer.style.bottom = "12px";
@@ -37,23 +60,37 @@ const showAIIcon = (messageInput: HTMLInputElement) => {
     root.render(
       React.createElement(AIIcon, {
         onClick: () => {
-          console.log('AI Icon clicked!'); 
           isPromptModalVisible = true;
           render(isPromptModalVisible);
-        }
+        },
       })
     );
   };
 
   const render = (modalVisible: boolean) => {
     if (modalVisible) {
-      root.render(
-         React.createElement(App, {render})
-      );
+      root.render(React.createElement(App, { render, insertResponse }));
     } else {
       renderAIIcon();
     }
   };
 
   render(isPromptModalVisible);
+
+  const insertResponse = (response: string) => {
+    const messageInput = document.querySelector<HTMLInputElement>(
+      ".msg-form__contenteditable"
+    );
+
+    if (messageInput) {
+      messageInput.innerHTML = `<p>${response}</p>`;
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(messageInput);
+      range.collapse(false);
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+      messageInput.focus();
+    }
+  };
 };
