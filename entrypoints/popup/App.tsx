@@ -1,34 +1,11 @@
-import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
-import wxtLogo from '/wxt.svg';
-import './App.css';
-
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
+    <div className= "w-[500px] flex flex-col gap-10 p-10 items-center cursor-default">
+      <h1 className="text-3xl text-primary">LinkedIn AI Reply</h1>
+      <p className="">
+        Made by <a href="https://github.com/tanu-chahal" target="_blank" className="text-primary font-semibold text-lg">Tanu Chahal</a> using  <span className="text-green-500 text-md font-semibold">WXT</span> and <span className="text-sky-500 font-semibold text-md">React (+Typescript)</span>
       </p>
-    </>
+    </div>
   );
 }
 

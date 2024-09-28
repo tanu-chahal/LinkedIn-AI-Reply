@@ -1,3 +1,3 @@
-# WXT + React
+# LinkedIn AI Reply
 
-This template should help get you started developing with React in WXT.
+A simple dummy chrome extension made using WXT, React, Typescript & TailwindCSS
