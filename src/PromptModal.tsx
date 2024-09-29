@@ -51,14 +51,14 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose, insertResponse }) =>
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-[999] w-full">
       <div
-        className="promptModal bg-[#F9FAFB] p-4 rounded-lg shadow-lg w-2/5 z-[999] flex flex-col items-end"
+        className="promptModal bg-[#F9FAFB] p-4 rounded-lg shadow-lg w-[450px] z-[999] flex flex-col items-end"
         ref={modalRef}
       >
-        <div className="msgs mb-4 w-full max-h-fit overflow-auto border-b border-gray-200 cursor-default">
+        <div className="msgs mb-4 w-full max-h-fit overflow-auto border-b border-gray-200 cursor-default" contentEditable={false}>
           {messages.map((message, index) => (
             <div key={index} className="mb-2">
               <div className="text-right">
-                <p className="bg-prompt-bg text-primary-gray p-2 rounded-md max-w-sm inline-block">
+                <p className="bg-prompt-bg text-primary-gray p-2 rounded-md max-w-sm inline-block text-left">
                   {message.user}
                 </p>
               </div>
@@ -83,6 +83,7 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose, insertResponse }) =>
           <button
             className="bg-primary text-white px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer"
             onClick={handleResponseGeneration}
+            contentEditable={false}
           >
             <img className="h-5" src={GenerateIcon} alt="Generate" />
             <span>Generate</span>
@@ -90,16 +91,18 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose, insertResponse }) =>
         ) : (
           <div className="buttons flex gap-5">
             <button
-              className="bg-transparent text-primary-gray px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer border-2 border-primary-gray font-semibold"
+              className="bg-transparent text-primary-gray px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer border-1 border-solid border-gray-500"
               onClick={handleResponseInsertion}
+              contentEditable={false}
             >
               <img className="h-5" src={InsertIcon} alt="Insert" />
-              <span>Insert</span>
+              <span className="font-semibold">Insert</span>
             </button>
             <button
               className="bg-primary text-white px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer"
               onClick={()=>console.log("Regenerating AI Response")}
               disabled
+              contentEditable={false}
             >
               <img className="h-5" src={RegenerateIcon} alt="Regenerate" />
               <span>Regenerate</span>

@@ -8,7 +8,7 @@ interface AIIconProps {
 
 const AIIcon: React.FC<AIIconProps> = ({ onClick }) => {
   return (
-    <div className="cursor-pointer w-10 h-10 rounded-full bg-white flex justify-center items-center shadow-md" onClick={onClick}>
+    <div className="cursor-pointer w-10 h-10 rounded-full bg-white flex justify-center items-center shadow-md" onClick={onClick} contentEditable={false}>
       <img
         src={AiIcon}
         alt="AI"
