@@ -91,7 +91,7 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose, insertResponse }) =>
         ) : (
           <div className="buttons flex gap-5">
             <button
-              className="bg-transparent text-primary-gray px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer border-1 border-solid border-gray-500"
+              className="bg-transparent text-primary-gray px-4 py-3 flex items-center justify-center gap-2 text-sm rounded-md self-end cursor-pointer border border-solid border-gray-500"
               onClick={handleResponseInsertion}
               contentEditable={false}
             >
