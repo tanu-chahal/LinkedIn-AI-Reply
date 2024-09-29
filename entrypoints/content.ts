@@ -32,6 +32,7 @@ export default defineContentScript({
           "ai-reply-icon-container"
         );
 
+        // removing the AI Icon on focus out
         if (iconContainer) {
           const root = createRoot(iconContainer);
           root.unmount();
@@ -54,28 +55,24 @@ const showAIIcon = (messageInput: HTMLInputElement) => {
   messageInput.appendChild(iconContainer);
 
   const root = ReactDOM.createRoot(iconContainer);
-  let isPromptModalVisible = false;
 
   const renderAIIcon = () => {
     root.render(
       React.createElement(AIIcon, {
         onClick: () => {
-          isPromptModalVisible = true;
-          render(isPromptModalVisible);
+          render(true);
         },
       })
     );
   };
 
-  const render = (modalVisible: boolean) => {
-    if (modalVisible) {
+  const render = (isModalVisible: boolean) => {
+    if (isModalVisible) {
       root.render(React.createElement(App, { render, insertResponse }));
     } else {
       renderAIIcon();
     }
   };
-
-  render(isPromptModalVisible);
 
   const insertResponse = (response: string) => {
     const messageInput = document.querySelector<HTMLInputElement>(
@@ -84,6 +81,7 @@ const showAIIcon = (messageInput: HTMLInputElement) => {
 
     if (messageInput) {
       messageInput.innerHTML = `<p>${response}</p>`;
+      // moving the cursor next to inserted response
       const range = document.createRange();
       const selection = window.getSelection();
       range.selectNodeContents(messageInput);
@@ -93,4 +91,6 @@ const showAIIcon = (messageInput: HTMLInputElement) => {
       messageInput.focus();
     }
   };
+
+  render(false);
 };
