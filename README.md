@@ -4,6 +4,8 @@ A simple chrome extension made using WXT, React, Typescript & TailwindCSS.
 
 # Demo
 
+Note: The blurred part in the demo video has been done while editing (to maintain privacy) that doesn't have anything to do with the extension functionality.
+
 [Watch Demo](https://vimeo.com/1013950990) or https://vimeo.com/1013950990
 
 ![Demo Image](./public/Demo-Image.png)
