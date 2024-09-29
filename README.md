@@ -38,4 +38,5 @@ This will launch the extension in a new Chrome tab, and you can start making cha
 - `./entrypoints/popup` contains popup elements of extension.
  - `./entrypoints/content.ts` contains the starting point of the code.
  - `./src` contains the components related to extension's functionality.
- - To view extension's functionality you need to go to visit LinkedIn's (https://www.linkedin.com) messaging page.
+ - To view extension's functionality you need to visit LinkedIn's (https://www.linkedin.com) messaging page.
+ - Focus on message component to see the extension in action.
